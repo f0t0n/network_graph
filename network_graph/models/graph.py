@@ -38,8 +38,6 @@ class Graph(object):
         return self.JSON_SETTINGS['pretty' if pretty else 'compact']
 
     def _get_path_weight(self, x, y):
-        # Probably should use nx.has_path() instead of try-except
-        # http://networkx.lanl.gov/reference/generated/networkx.algorithms.shortest_paths.generic.has_path.html
         try:
             return nx.dijkstra_path_length(self.graph, x, y)
         except nx.exception.NetworkXNoPath:
@@ -93,13 +91,7 @@ class Graph(object):
 
     def weight_matrix(self):
         nodes = self.nodes
-        weight_matrix = []
-        for y in nodes:
-            row = []
-            for x in nodes:
-                row.append(self._get_path_weight(y, x))
-            weight_matrix.append(row)
-        return weight_matrix
+        return [[self._get_path_weight(y, x) for x in nodes] for y in nodes]
 
     def add_node_with_edges(self, node, nodes, weights):
         if self.graph.has_node(node):
