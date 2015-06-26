@@ -8,3 +8,7 @@ pip-log.txt
 
 # python virtual environment
 /.env
+
+# files with data
+
+/network_graph/network_graph.json
