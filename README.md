@@ -1,4 +1,3 @@
-Network Graph
+# Network Graph
 
-The web application for playing with undirected acyclic graph.
-
+*The web application for playing with undirected acyclic graph.*
