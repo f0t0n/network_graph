@@ -1,0 +1,7 @@
+{% macro item(url, text) -%}
+    <li {% if request.url_rule.endpoint == url %}class="active"{% endif %}>
+        <a href="{{ url_for(url) }}">
+            {{ text }}
+        </a>
+    </li>
+{%- endmacro %}

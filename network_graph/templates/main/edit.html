@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <form method="post" id="node-form" class="form-horizontal col-xs-12 shadow-z-1">
+        <fieldset>
+
+            <div class="form-group row col-xs-12">
+                <label for="input-name" class="col-xs-1 control-label">Name</label>
+                <div class="col-xs-4">
+                    <input name="current_node" type="text" class="form-control" id="input-name" placeholder="Name" value="{{ node }}">
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12">
+
+                <div class="form-group col-xs-12">
+                    <label class="col-xs-1 control-label">Edges</label>
+                </div>
+
+                {% macro checkbox(index, node_name, checked) -%}
+                    <input 
+                        type="checkbox"
+                        name="node" 
+                        value="{{ node_name }}"
+                        data-index="{{ index }}" 
+                        {% if checked %}checked{% endif %}> 
+                     {{ node_name }}
+                {%- endmacro %}
+
+
+                {% for node_name, path_data in paths.iteritems() %}
+                    <div class="row">
+                        <label class="col-xs-1 control-label"></label>
+                        <div class="checkbox col-xs-4">
+                            <label>
+                                {% if path_data['has_edge'] %}
+                                    {{ checkbox(loop.index, node_name, True) }}
+                                {% elif path_data['weight'] %}
+                                    Connected with <b>{{ node_name }}</b> through <b>{{ path_data.path[1] }}</b>
+                                {% else %}
+                                    {{ checkbox(loop.index, node_name, False) }}
+                                {% endif %}
+                            </label>
+                        </div>
+
+
+                        <div class="col-xs-4">
+                            {% if path_data['has_edge'] or not path_data['weight'] %}
+                            <input name="weight" disabled data-index="{{ loop.index }}" type="number" min="1"
+                                    class="form-control" id="input-weight-{{ loop.index }}"
+                                    placeholder="Enter Edge Weight" 
+                                    value="{% if path_data['has_edge'] %}{{ path_data['weight'] }}{% endif %}">
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+
+            </div>
+
+             <div class="form-group pull-right">
+                <div class="col-xs-12">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block js_on_document_ready %}
+    var $form,
+        $checkboxes,
+        toggleTextInput;
+    $form = $('#node-form');
+    $checkboxes = $form.find('input[type=checkbox]');
+    toggleTextInput = function() {
+        var index = $(this).data('index');
+        $form.find('input[type=number][data-index=' + index + ']')
+            .prop('disabled', !this.checked);
+    };
+    $checkboxes.each(toggleTextInput);
+    $checkboxes.on('change', toggleTextInput);
+{% endblock %}

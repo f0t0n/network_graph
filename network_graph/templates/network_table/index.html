@@ -1,0 +1,21 @@
+{% extends "graph_table.html" %}
+
+{% block table_head %}
+    <tr>
+        <th></th>
+        {% for node in nodes %}
+        <th>{{ node }} </th>
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for row in graph.weight_matrix() %}
+        <tr>
+            <th>{{ nodes[loop.index - 1] }}</th>
+            {% for weight in row %}
+                <td>{{ weight }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+{% endblock %}

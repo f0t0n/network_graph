@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+    {% import 'menu.html' as menu %}
+
+    <head>
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+        <link href="/static/css/roboto.min.css" rel="stylesheet">
+        <link href="/static/css/material.min.css" rel="stylesheet">
+        <link href="/static/css/ripples.min.css" rel="stylesheet">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+
+    <body>
+
+        <!-- Your site -->
+        <div id="content" class="container-fluid">
+
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url_for('main.index') }}">Network Graph</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        {{ menu.item('network_table.index', 'Network Table') }}
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span10">
+                            <div class="form-group has-error">
+                                {% block error %}
+                                    {% if error: %}
+                                        <p class="text-danger mdi-alert-error">{{ error }}</p>
+                                        {# <span class="control-label mdi-alert-error">{{ error }}</span> #}
+                                    {% endif %}
+                                {% endblock%}
+                            </div>
+                            {% block content %}
+                                LAYOUT
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--
+        <h1>You can add your site here.</h1>
+
+        <h2>To ensure that material-design theme is working, check out the buttons below.</h2>
+
+        <h3 class="text-muted">If you can see the ripple effect on clicking them, then you are good to go!</h3>
+
+
+        <p class="bs-component">
+            <a href="javascript:void(0)" class="btn btn-default">Default</a>
+            <a href="javascript:void(0)" class="btn btn-primary">Primary</a>
+            <a href="javascript:void(0)" class="btn btn-success">Success</a>
+            <a href="javascript:void(0)" class="btn btn-info">Info</a>
+            <a href="javascript:void(0)" class="btn btn-warning">Warning</a>
+            <a href="javascript:void(0)" class="btn btn-danger">Danger</a>
+            <a href="javascript:void(0)" class="btn btn-link">Link</a>
+        </p>
+-->
+
+        <!-- Your site ends -->
+
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/ripples.min.js"></script>
+        <script src="/static/js/material.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+                {% block js_on_document_ready %}{% endblock %}
+            });
+        </script>
+
+    </body>
+
+</html>

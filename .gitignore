@@ -1,0 +1,10 @@
+*.py[cod]
+
+# Installer logs
+pip-log.txt
+
+# Backup files
+*~
+
+# python virtual environment
+/.env

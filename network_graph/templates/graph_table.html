@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% block add %}{% endblock %}
+    {% if not nodes %}
+        <div class="panel panel-default ">
+            <div class="panel-body">
+                The graph is empty
+            </div>
+        </div>
+    {% else %}
+        <table class="table table-striped table-hover shadow-z-1">
+            <thead>
+                {% block table_head %}{% endblock %}
+            </thead>
+            <tbody>
+                {% block table_body %}{% endblock %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

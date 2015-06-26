@@ -1,0 +1,36 @@
+{% extends "graph_table.html" %}
+
+
+{% block add %}
+    <div class="row">
+        <a class="pull-right btn btn-primary" href="{{ url_for('main.add_node') }}">
+            Add Node
+        </a>
+    </div>
+{% endblock %}
+
+{% block table_head %}
+    <tr>
+        <th>Node</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for node in nodes %}
+        <tr>
+            <td>{{ node }}</td>
+            <td>
+                <a href="{{ url_for('main.edit_node', node=node) }}">
+                    <i class="mdi-editor-mode-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a href="{{ url_for('main.delete_node', node=node) }}">
+                    <i class="mdi-action-delete"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

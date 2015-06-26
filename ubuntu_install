@@ -1,0 +1,5 @@
+#   Default:
+sudo apt-get install python-pip python-dev
+
+#   For scipy, numpy:
+sudo apt-get install gfortran liblapack-dev libatlas-dev
